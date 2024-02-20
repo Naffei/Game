@@ -8,11 +8,13 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rb;
 
     Vector2 movement;
+    SpriteRenderer spriteRenderer;
 
 
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
@@ -22,6 +24,13 @@ public class PlayerMovement : MonoBehaviour
         // User Inputs
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+
+        if(movement.x > 0){
+            spriteRenderer.flipX = false;
+        }   else if (movement.x < 0) {
+            spriteRenderer.flipX= true;
+        }
+
     }
 
     void FixedUpdate()
@@ -37,5 +46,4 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = Vector2.zero;
         }
     }      
-
 }
