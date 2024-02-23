@@ -7,6 +7,7 @@ public class SlimeMovement : MonoBehaviour
 {
     public float moveSpeed = 2f;
     public Rigidbody2D rb;
+
     private Transform player;
     private Vector3 lastPlayerPos;
     private List<Vector3> playerPositions = new List<Vector3>();
@@ -33,7 +34,6 @@ public class SlimeMovement : MonoBehaviour
 
             // Calculate and move to player's positions
             MoveToPlayer();
-
         }
     }
 

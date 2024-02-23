@@ -246,6 +246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 709997638}
   - component: {fileID: 709997639}
+  - component: {fileID: 709997640}
   m_Layer: 0
   m_Name: MeleeHitbox
   m_TagString: Untagged
@@ -313,6 +314,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.53762794}
   m_EdgeRadius: 0
+--- !u!114 &709997640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 709997637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e157780a465a58549bd57b928e83d22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1533327348}
+  MeleeHitbox: {fileID: 709997639}
 --- !u!1 &753408194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
@@ -391,7 +406,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 1
-  m_Offset: {x: 0.011436373, y: 0.34212524}
+  m_Offset: {x: -0.00043779612, y: 0.024489857}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.4615385, y: -1.1111112}
@@ -402,7 +417,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.28058988, y: 0.059250474}
+  m_Size: {x: 0.28652704, y: 0.05331333}
   m_EdgeRadius: 0
 --- !u!66 &753408201
 CompositeCollider2D:
@@ -443,25 +458,43 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 753408200}
     m_ColliderPaths:
-    - - X: 1517313
-        Y: 3717504
-      - X: -1288585
-        Y: 3717504
-      - X: -1288585
-        Y: 3125000
-      - X: 1517313
-        Y: 3125000
+    - - X: 1428257
+        Y: 511465
+      - X: -1437013
+        Y: 511465
+      - X: -1437013
+        Y: -21668
+      - X: 1428257
+        Y: -21668
   m_CompositePaths:
     m_Paths:
-    - - {x: 0.151702, y: 0.3125}
-      - {x: 0.151702, y: 0.3717504}
-      - {x: -0.1288585, y: 0.37172112}
-      - {x: -0.1288292, y: 0.3125}
+    - - {x: 0.1427964, y: -0.0021668}
+      - {x: 0.1427964, y: 0.0511465}
+      - {x: -0.1437013, y: 0.0511172}
+      - {x: -0.143672, y: -0.0021668}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 753408194}
+<<<<<<< Updated upstream
 --- !u!1 &964065528 stripped
+=======
+--- !u!114 &753408202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 753408194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca47a6c56e611a4599338e3e2803c39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  pushback: 5
+--- !u!1 &964065528
+>>>>>>> Stashed changes
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
   m_PrefabInstance: {fileID: 1533327340}
@@ -1690,17 +1723,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime
       objectReference: {fileID: 0}
+    - target: {fileID: -2253911629886400664, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.92
+      value: 0.893
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: 0.096
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1750,6 +1787,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 753408201}
+    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 753408202}
   m_SourcePrefab: {fileID: -8435245712485981826, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
 --- !u!1 &1496982470
 GameObject:
@@ -1909,7 +1949,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+<<<<<<< Updated upstream
 --- !u!4 &1533327347 stripped
+=======
+  MeleeHitbox: {fileID: 0}
+--- !u!4 &1533327347
+>>>>>>> Stashed changes
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
   m_PrefabInstance: {fileID: 1533327340}
