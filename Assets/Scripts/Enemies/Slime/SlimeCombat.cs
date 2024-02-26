@@ -8,7 +8,6 @@ public class SlimeC : MonoBehaviour
     public Rigidbody2D rb;
     public float pushback = 5f;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -18,17 +17,17 @@ public class SlimeC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+                
     }
 
-    private void onTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Detect player attack and push away
-        if(other.GameObject.name == "MeleeHitbox")
+        // Detect player attack and push away
+        if (collision.gameObject.name == "MeleeHitbox")
         {
-        Vector2. pushbackDir = (transform.position-other.transform.postiion).normalized;
-        rb.AddForce(pushbackDirection * BackBlast, ForceMode.2D.Impluse)     
+            Debug.Log("Hit Detected");
+            Vector2 pushbackDir = (transform.position - collision.transform.position).normalized;
+            rb.AddForce(pushbackDir * pushback, ForceMode2D.Impulse);  
         }
     }
-
 }

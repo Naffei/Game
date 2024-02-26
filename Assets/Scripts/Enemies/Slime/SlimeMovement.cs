@@ -33,30 +33,30 @@ public class SlimeMovement : MonoBehaviour
             }
 
             // Calculate and move to player's positions
-            MoveToPlayer();
+            // MoveToPlayer();
         }
     }
 
-    void MoveToPlayer()
-    {
-        if (playerPositions.Count > 0)
-        {
-            rb.simulated = true;
-            Vector2 direction = ((Vector2)playerPositions[0] - rb.position).normalized;
-            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+    // void MoveToPlayer()
+    // {
+    //     if (playerPositions.Count > 0)
+    //     {
+    //         rb.simulated = true;
+    //         Vector2 direction = ((Vector2)playerPositions[0] - rb.position).normalized;
+    //         rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
 
-            if (Vector2.Distance(rb.position, playerPositions[0]) < 0.1f)
-            {
-                // Remove the reached position from the list
-                playerPositions.RemoveAt(0);
-            }
-        }
-        else
-        {
-            // If there are no positions in the list, disable Rigidbody
-            rb.simulated = false;
-        }
-    }
+    //         if (Vector2.Distance(rb.position, playerPositions[0]) < 0.1f)
+    //         {
+    //             // Remove the reached position from the list
+    //             playerPositions.RemoveAt(0);
+    //         }
+    //     }
+    //     else
+    //     {
+    //         // If there are no positions in the list, disable Rigidbody
+    //         rb.simulated = false;
+    //     }
+    // }
 
     private void OnCollisionStay2D(Collision2D collision)
     {

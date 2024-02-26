@@ -246,10 +246,9 @@ GameObject:
   m_Component:
   - component: {fileID: 709997638}
   - component: {fileID: 709997639}
-  - component: {fileID: 709997640}
   m_Layer: 0
   m_Name: MeleeHitbox
-  m_TagString: Untagged
+  m_TagString: Collidable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,7 +275,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709997637}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -314,20 +313,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.53762794}
   m_EdgeRadius: 0
---- !u!114 &709997640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 709997637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e157780a465a58549bd57b928e83d22c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1533327348}
-  MeleeHitbox: {fileID: 709997639}
 --- !u!1 &753408194 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
@@ -340,7 +325,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753408194}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b968ef8d9908dc34f98e77b293a7b004, type: 3}
   m_Name: 
@@ -406,18 +391,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 1
-  m_Offset: {x: -0.00043779612, y: 0.024489857}
+  m_Offset: {x: -0.005735874, y: 0.009246603}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4615385, y: -1.1111112}
-    oldSize: {x: 0.40625, y: 0.28125}
+    pivot: {x: 0.52, y: 0.32}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.40625, y: 0.28125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.28652704, y: 0.05331333}
+  m_Size: {x: 0.2779479, y: 0.03792566}
   m_EdgeRadius: 0
 --- !u!66 &753408201
 CompositeCollider2D:
@@ -458,43 +443,25 @@ CompositeCollider2D:
   m_ColliderPaths:
   - m_Collider: {fileID: 753408200}
     m_ColliderPaths:
-    - - X: 1428257
-        Y: 511465
-      - X: -1437013
-        Y: 511465
-      - X: -1437013
-        Y: -21668
-      - X: 1428257
-        Y: -21668
+    - - X: 1332380
+        Y: 282094
+      - X: -1447098
+        Y: 282094
+      - X: -1447098
+        Y: -97162
+      - X: 1332380
+        Y: -97162
   m_CompositePaths:
     m_Paths:
-    - - {x: 0.1427964, y: -0.0021668}
-      - {x: 0.1427964, y: 0.0511465}
-      - {x: -0.1437013, y: 0.0511172}
-      - {x: -0.143672, y: -0.0021668}
+    - - {x: 0.1332087, y: -0.0097162}
+      - {x: 0.1332087, y: 0.0282094}
+      - {x: -0.1447098, y: 0.0281801}
+      - {x: -0.1446805, y: -0.0097162}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 753408194}
-<<<<<<< Updated upstream
 --- !u!1 &964065528 stripped
-=======
---- !u!114 &753408202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753408194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ca47a6c56e611a4599338e3e2803c39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  pushback: 5
---- !u!1 &964065528
->>>>>>> Stashed changes
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2253911629886400664, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
   m_PrefabInstance: {fileID: 1533327340}
@@ -592,7 +559,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.27083334, y: 0.5625}
+    oldSize: {x: 0.26, y: 0.54}
     newSize: {x: 0.27083334, y: 0.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1728,16 +1695,20 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3626916397498700004, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1924171608, guid: 3535bbd1a9bffbf4e95de85301dd2dd6, type: 3}
+    - target: {fileID: 3626916397498700004, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.893
+      value: 0.898
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.096
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1787,9 +1758,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 753408201}
-    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 753408202}
   m_SourcePrefab: {fileID: -8435245712485981826, guid: 8b236ff2bf2184047b8760f76f2d66e0, type: 3}
 --- !u!1 &1496982470
 GameObject:
@@ -1856,7 +1824,7 @@ PrefabInstance:
     - target: {fileID: 1160356261127867848, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 7287449834270111060, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
+      objectReference: {fileID: 9100000, guid: 0e6cac5326f89c94381ffc12a25d1b4a, type: 2}
     - target: {fileID: 1160356261127867848, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -1869,6 +1837,10 @@ PrefabInstance:
       propertyPath: m_FlipY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9636bb82ba2908d4db9b3645e60aa089, type: 2}
     - target: {fileID: 3626916397498700004, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
       propertyPath: m_SpriteSortPoint
       value: 1
@@ -1949,12 +1921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-<<<<<<< Updated upstream
 --- !u!4 &1533327347 stripped
-=======
-  MeleeHitbox: {fileID: 0}
---- !u!4 &1533327347
->>>>>>> Stashed changes
 Transform:
   m_CorrespondingSourceObject: {fileID: 7878350319992209165, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
   m_PrefabInstance: {fileID: 1533327340}
