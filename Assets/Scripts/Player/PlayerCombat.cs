@@ -5,13 +5,9 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     public Animator animator;
+    public float swordDmg = 1f;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
+    public GameObject MeleeHitbox;
 
     // Update is called once per frame
     void Update()
@@ -23,9 +19,26 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        collider.SendMessage("Hit", swordDmg);
+    }
+
     void Attack()
     {
         Debug.Log("Function called");
         animator.SetTrigger("swingAtk");
+
+        MeleeHitbox.SetActive(true);
+
+        //Position hitbox to be on the right or left
+        if(Input.GetAxis("Horizontal") > 0) // Right facing
+        {
+            MeleeHitbox.transform.localPosition = new Vector3(0.29f, 0.12f, 0);
+        }
+        else if(Input.GetAxis("Horizontal") < 0) // Left facing
+        {
+            MeleeHitbox.transform.localPosition = new Vector3(-0.29f, 0.10f, 0);
+        }
     }
 }

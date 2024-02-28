@@ -7,8 +7,9 @@ using UnityEngine.Assertions.Must;
 public class SlimeMovement : MonoBehaviour
 {
     public float moveSpeed = 2f;
-    public Rigidbody2D rb;
     public float pushBack = 5f;
+    public Rigidbody2D rb;
+
     private Transform player;
     private Vector3 lastPlayerPos;
     private List<Vector3> playerPositions = new List<Vector3>();
@@ -66,8 +67,6 @@ public class SlimeMovement : MonoBehaviour
         // Detect player attack and push away
         if (collision.gameObject.name == "MeleeHitbox")
         {
-            Debug.Log("Hit Detected");
-
             Vector2 pushbackDir = (transform.position - collision.transform.position).normalized;
 
             // Calculate distance between player and slime
@@ -83,7 +82,7 @@ public class SlimeMovement : MonoBehaviour
             }
 
             rb.AddForce(pushForce, ForceMode2D.Impulse);
-            StartCoroutine(DisableMovementForDuration(0.5f));
+            StartCoroutine(DisableMovementForDuration(0.7f));
 
             Debug.Log(pushForce);
         }
