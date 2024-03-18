@@ -38,11 +38,12 @@ public class PlayerMovement : MonoBehaviour
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    public void OnCollisionStay2D(Collision2D collision)
     {
         // Check if there is a wall and make player stop
         if (collision.gameObject.CompareTag("Collidable"))
         {
+            Debug.Log("Test");
             rb.velocity = Vector2.zero;
         }
     }      
