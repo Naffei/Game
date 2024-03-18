@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class SlimeC : MonoBehaviour
 {
-//     public int hp = 100;
+    public int maxHP = 3;
+    public int currentHealth;
     public Rigidbody2D rb;
-    public float pushback = 5f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        currentHealth = maxHP;
     }
 
     // Update is called once per frame
@@ -20,14 +21,21 @@ public class SlimeC : MonoBehaviour
                 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void Hit(int damageTaken)
     {
-        // Detect player attack and push away
-        if (collision.gameObject.name == "MeleeHitbox")
+        Debug.Log("Hit Detected " + damageTaken);
+        Debug.Log(currentHealth);
+        currentHealth -= damageTaken;
+
+        if (currentHealth < 0)
         {
-            Debug.Log("Hit Detected");
-            Vector2 pushbackDir = (transform.position - collision.transform.position).normalized;
-            rb.AddForce(pushbackDir * pushback, ForceMode2D.Impulse);  
+            Die();
         }
     }
+
+    void Die()
+    {
+        Destroy(gameObject);
+    }
+
 }
