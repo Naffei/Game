@@ -17,6 +17,16 @@ public class PlayerCombat : MonoBehaviour
             Attack();
             Debug.Log("Input detected");
         }
+
+        //Position hitbox to be on the right or left
+        if (Input.GetAxis("Horizontal") > 0) // Right facing
+        {
+            MeleeHitbox.transform.localPosition = new Vector3(0.29f, 0.12f, 0);
+        }
+        else if (Input.GetAxis("Horizontal") < 0) // Left facing
+        {
+            MeleeHitbox.transform.localPosition = new Vector3(-0.29f, 0.10f, 0);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -30,15 +40,5 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("swingAtk");
 
         MeleeHitbox.SetActive(true);
-
-        //Position hitbox to be on the right or left
-        if(Input.GetAxis("Horizontal") > 0) // Right facing
-        {
-            MeleeHitbox.transform.localPosition = new Vector3(0.29f, 0.12f, 0);
-        }
-        else if(Input.GetAxis("Horizontal") < 0) // Left facing
-        {
-            MeleeHitbox.transform.localPosition = new Vector3(-0.29f, 0.10f, 0);
-        }
     }
 }

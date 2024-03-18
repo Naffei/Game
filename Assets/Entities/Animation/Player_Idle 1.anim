@@ -27,11 +27,7 @@ AnimationClip:
     - time: 0.41666666
       value: {fileID: -603694831, guid: e3603160c59e61a4e8e3ca98f0bd7fb9, type: 3}
     - time: 0.5833333
-<<<<<<< Updated upstream
-      value: {fileID: 1281053232, guid: e3603160c59e61a4e8e3ca98f0bd7fb9, type: 3}
-=======
       value: {fileID: 509749734, guid: e3603160c59e61a4e8e3ca98f0bd7fb9, type: 3}
->>>>>>> Stashed changes
     attribute: m_Sprite
     path: 
     classID: 212
@@ -57,11 +53,7 @@ AnimationClip:
     - {fileID: 509749734, guid: e3603160c59e61a4e8e3ca98f0bd7fb9, type: 3}
     - {fileID: -2140932411, guid: e3603160c59e61a4e8e3ca98f0bd7fb9, type: 3}
     - {fileID: -603694831, guid: e3603160c59e61a4e8e3ca98f0bd7fb9, type: 3}
-<<<<<<< Updated upstream
-    - {fileID: 1281053232, guid: e3603160c59e61a4e8e3ca98f0bd7fb9, type: 3}
-=======
     - {fileID: 509749734, guid: e3603160c59e61a4e8e3ca98f0bd7fb9, type: 3}
->>>>>>> Stashed changes
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
