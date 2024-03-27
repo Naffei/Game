@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Collidable
+  - Door Left Right
+  - Door Up Down Left
+  - Door Left Down Right
+  - Door Left Up Right
+  - Door Up Left Down
+  - Door Down Right
+  - Door Up Down
+  - Door Up Right
   layers:
   - Default
   - TransparentFX
