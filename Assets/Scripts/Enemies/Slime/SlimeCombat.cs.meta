@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 0b57bd0bd4d74ec449d4ee5bcd761000
+<<<<<<<< Updated upstream:Assets/Scripts/Enemies/Slime/SlimeCombat.cs.meta
+guid: d3533d8fbcc694f4a9cbab910a028266
+========
+guid: 93766cff48ca22546829e3f835f2efe9
+>>>>>>>> Stashed changes:Assets/Scripts/Level/Test.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

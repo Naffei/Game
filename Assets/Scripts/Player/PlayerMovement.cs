@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
     }
 
 
@@ -46,5 +48,13 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Test");
             rb.velocity = Vector2.zero;
         }
-    }      
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Door"))
+        {
+            Debug.Log("Door Detected");
+        }
+    }
 }

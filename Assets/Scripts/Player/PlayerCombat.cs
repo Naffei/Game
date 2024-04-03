@@ -31,7 +31,17 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
+<<<<<<< Updated upstream
         collider.SendMessage("Hit", swordDmg);
+=======
+        string colliderName = collider.gameObject.name;
+
+        // Check if the collider's name contains "Door" but is not one of the specific doors
+        if (colliderName.Contains("Door") && colliderName != "TopDoor" && colliderName != "BotDoor" && colliderName != "LeftDoor" && colliderName != "RightDoor")
+        {
+            collider.SendMessage("Hit", swordDmg);
+        }
+>>>>>>> Stashed changes
     }
 
     void Attack()
@@ -40,5 +50,10 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("swingAtk");
 
         MeleeHitbox.SetActive(true);
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
     }
 }
