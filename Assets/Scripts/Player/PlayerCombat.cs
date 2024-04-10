@@ -34,7 +34,7 @@ public class PlayerCombat : MonoBehaviour
         string colliderName = collider.gameObject.name;
 
         // Check if the collider's name contains "Door" but is not one of the specific doors
-        if (colliderName.Contains("Door") && colliderName != "TopDoor" && colliderName != "BotDoor" && colliderName != "LeftDoor" && colliderName != "RightDoor")
+        if (!colliderName.Contains("Door") && colliderName != "TopDoor" && colliderName != "BotDoor" && colliderName != "LeftDoor" && colliderName != "RightDoor")
         {
             collider.SendMessage("Hit", swordDmg);
         }
@@ -46,7 +46,5 @@ public class PlayerCombat : MonoBehaviour
         animator.SetTrigger("swingAtk");
 
         MeleeHitbox.SetActive(true);
-
-
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.Mathematics;
 using UnityEditor.EditorTools;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class Walk : MonoBehaviour
 {
     public GameObject roomPrefab;
     public GameObject spawnRoomPrefab;
+    public GameObject slimePrefab;
     public int gridSizeX = 7;
     public int gridSizeY = 7;
     public int minRooms = 4;
@@ -15,12 +17,10 @@ public class Walk : MonoBehaviour
     public float cellWidth = 11f;
     public float cellHeight = 9f;
 
+    private int numberOfSlimes = 3;
+
     private List<Vector2Int> visitedCells = new List<Vector2Int>();
-    private List<GameObject> roomObjects = new List<GameObject>();
-
-    private Transform playerTransform;
-
-    public Dictionary<Vector2, Vector3> doorPositions = new Dictionary<Vector2, Vector3>();
+    public List<GameObject> roomObjects = new List<GameObject>();
 
     void Start()
     {
@@ -34,12 +34,12 @@ public class Walk : MonoBehaviour
         Vector2Int currentPosition = Vector2Int.zero;
         visitedCells.Add(currentPosition);
         GameObject spawnRoom = Instantiate(spawnRoomPrefab, spawnPos, Quaternion.identity);
+        spawnRoom.name = "SpawnRoom";
         roomObjects.Add(spawnRoom);
-        OpenDoors(spawnRoom, currentPosition.x, currentPosition.y);
 
         // Generate additional rooms
         int numOfRoomsToGet = UnityEngine.Random.Range(minRooms, maxRooms + 1);
-        int roomsPlaced = 1; // Start with 1 because spawn already instantiated
+        int roomsPlaced = 0;
 
         while (roomsPlaced < numOfRoomsToGet)
         {
@@ -56,14 +56,18 @@ public class Walk : MonoBehaviour
                 // Instantiate a room at the current position
                 Vector2 position = new Vector2(nextPosition.x * cellWidth, nextPosition.y * cellHeight);
                 GameObject newRoom = Instantiate(roomPrefab, position, Quaternion.identity);
+                newRoom.name = "Room" + roomsPlaced; // Assign room name
                 roomObjects.Add(newRoom);
 
-                // Open doors based on adjacent rooms
+                // Call OpenDoors function
                 OpenDoors(newRoom, nextPosition.x, nextPosition.y);
+
+                SpawnEnemies(newRoom);
 
                 // Move to the next position
                 currentPosition = nextPosition;
                 roomsPlaced++;
+
             }
             else
             {
@@ -71,6 +75,7 @@ public class Walk : MonoBehaviour
                 nextDirection = GetRandomDirection();
             }
         }
+
     }
 
     Vector2Int GetRandomDirection()
@@ -93,47 +98,152 @@ public class Walk : MonoBehaviour
         return cell.x >= 0 && cell.x < gridSizeX && cell.y >= 0 && cell.y < gridSizeY && !visited.Contains(cell);
     }
 
-    /*    void OpenDoors(GameObject room, int x, int y)
-        {
-            // Check for adjacent rooms
-            GameObject leftRoom = GetRoomObjectAt(new Vector2Int(x - 1, y));
-            GameObject rightRoom = GetRoomObjectAt(new Vector2Int(x + 1, y));
-            GameObject topRoom = GetRoomObjectAt(new Vector2Int(x, y + 1));
-            GameObject downRoom = GetRoomObjectAt(new Vector2Int(x, y - 1));
-
-            if (leftRoom != null)
-            {
-                // Open door to the left in the current room and to the right in the left room
-                room.GetComponent<Room>().OpenDoor(Vector2.left);
-                leftRoom.GetComponent<Room>().OpenDoor(Vector2.right);
-            }
-
-            if (rightRoom != null)
-            {
-                // Open door to the right in the current room and to the left in the right room
-                room.GetComponent<Room>().OpenDoor(Vector2.right);
-                rightRoom.GetComponent<Room>().OpenDoor(Vector2.left);
-            }
-
-            if (topRoom != null)
-            {
-                // Open door upwards in the current room and downwards in the top room
-                room.GetComponent<Room>().OpenDoor(Vector2.up);
-                topRoom.GetComponent<Room>().OpenDoor(Vector2.down);
-            }
-
-            if (downRoom != null)
-            {
-                // Open door downwards in the current room and upwards in the bottom room
-                room.GetComponent<Room>().OpenDoor(Vector2.down);
-                downRoom.GetComponent<Room>().OpenDoor(Vector2.up);
-            }
-        }*/
-
-    Dictionary<Vector2, Vector3> OpenDoors(GameObject room, int x, int y)
+    // Open doors based on adjacent rooms
+    void OpenDoors(GameObject room, int x, int y)
     {
-        Dictionary<Vector2, Vector3> doorPositions = new Dictionary<Vector2, Vector3>();
+        // Check for adjacent rooms
+        GameObject leftRoom = GetRoomObjectAt(new Vector2Int(x - 1, y));
+        GameObject rightRoom = GetRoomObjectAt(new Vector2Int(x + 1, y));
+        GameObject topRoom = GetRoomObjectAt(new Vector2Int(x, y + 1));
+        GameObject downRoom = GetRoomObjectAt(new Vector2Int(x, y - 1));
 
+        List<DoorInfo> doorPairs = new List<DoorInfo>();
+
+        if (leftRoom != null)
+        {
+            // Open door to the left in the current room and to the right in the left room
+            room.GetComponent<Room>().OpenDoor(Vector2.left);
+            leftRoom.GetComponent<Room>().OpenDoor(Vector2.right);
+
+            // Store door info information
+            DoorInfo leftDoor = new DoorInfo("LeftDoor", Vector2.left, room.GetComponent<Room>().GetDoorPosition(Vector2.left));
+            DoorInfo rightDoor = new DoorInfo("RightDoor", Vector2.right, leftRoom.GetComponent<Room>().GetDoorPosition(Vector2.right));
+            doorPairs.Add(leftDoor);
+            doorPairs.Add(rightDoor);
+        }
+
+        if (rightRoom != null)
+        {
+            // Open door to the right in the current room and to the left in the right room
+            room.GetComponent<Room>().OpenDoor(Vector2.right);
+            rightRoom.GetComponent<Room>().OpenDoor(Vector2.left);
+
+            // Store door info information
+            DoorInfo rightDoor = new DoorInfo("RightDoor", Vector2.right, room.GetComponent<Room>().GetDoorPosition(Vector2.right));
+            DoorInfo leftDoor = new DoorInfo("LeftDoor", Vector2.left, rightRoom.GetComponent<Room>().GetDoorPosition(Vector2.left));
+            doorPairs.Add(rightDoor);
+            doorPairs.Add(leftDoor);
+        }
+
+        if (topRoom != null)
+        {
+            // Open door upwards in the current room and downwards in the top room
+            room.GetComponent<Room>().OpenDoor(Vector2.up);
+            topRoom.GetComponent<Room>().OpenDoor(Vector2.down);
+
+            // Store door info information
+            DoorInfo topDoor = new DoorInfo("TopDoor", Vector2.up, room.GetComponent<Room>().GetDoorPosition(Vector2.up));
+            DoorInfo bottomDoor = new DoorInfo("BottomDoor", Vector2.down, topRoom.GetComponent<Room>().GetDoorPosition(Vector2.down));
+            doorPairs.Add(topDoor);
+            doorPairs.Add(bottomDoor);
+        }
+
+        if (downRoom != null)
+        {
+            // Open door downwards in the current room and upwards in the bottom room
+            room.GetComponent<Room>().OpenDoor(Vector2.down);
+            downRoom.GetComponent<Room>().OpenDoor(Vector2.up);
+
+            // Store door info information
+            DoorInfo bottomDoor = new DoorInfo("BottomDoor", Vector2.down, room.GetComponent<Room>().GetDoorPosition(Vector2.down));
+            DoorInfo topDoor = new DoorInfo("TopDoor", Vector2.up, downRoom.GetComponent<Room>().GetDoorPosition(Vector2.up));
+            doorPairs.Add(bottomDoor);
+            doorPairs.Add(topDoor);
+        }
+
+        foreach (var doorPair in doorPairs)
+        {
+            Debug.Log("Door Name: " + doorPair.name + ", Direction: " + doorPair.direction + ", Position: " + doorPair.position);
+        }
+    }
+
+    public class DoorInfo
+    {
+        public string name;
+        public Vector2 direction;
+        public Vector3 position;
+
+        public DoorInfo(string doorName, Vector2 dir, Vector3 pos)
+        {
+            name = doorName;
+            direction = dir;
+            position = pos;
+        }
+    }
+
+    public GameObject GetRoomObjectAt(Vector2Int index)
+    {
+        // Find the room object at the given index
+        foreach (var room in roomObjects)
+        {
+            Vector2Int roomIndex = new Vector2Int(Mathf.RoundToInt(room.transform.position.x / cellWidth),
+                                                  Mathf.RoundToInt(room.transform.position.y / cellHeight));
+            if (roomIndex == index)
+            {
+                return room;
+            }
+        }
+        return null;
+    }
+
+    void SpawnEnemies(GameObject room)
+    {
+        // Get the room number from its name
+        string roomName = room.name;
+        int roomNumber = int.Parse(roomName.Substring(4)); // Assuming the room name format is "RoomX"
+
+        // Check room number and spawn enemies accordingly
+        if (roomNumber >= 0 && roomNumber <= 2)
+        {
+            // Spawn slimes for rooms 0 to 2
+            SpawnSlimes(room);
+        }
+    }
+
+    void SpawnSlimes(GameObject room)
+    {
+        // Spawn slimes in the room
+        // Example code to spawn slimes
+        for (int i = 0; i < numberOfSlimes; i++)
+        {
+            Vector3 spawnPosition = GetRandomSpawnPositionInRoom(room);
+            Instantiate(slimePrefab, spawnPosition, Quaternion.identity, room.transform);
+        }
+    }
+
+    Vector3 GetRandomSpawnPositionInRoom(GameObject room)
+    {
+        Renderer roomRenderer = room.GetComponent<Renderer>();
+        if (roomRenderer != null)
+        {
+            // Calculate a random position within the room's bounds
+            Bounds bounds = roomRenderer.bounds;
+            float randomX = UnityEngine.Random.Range(bounds.min.x, bounds.max.x);
+            float randomY = UnityEngine.Random.Range(bounds.min.y, bounds.max.y);
+            return new Vector3(randomX, randomY, 0);
+        }
+        else
+        {
+            // Fallback spawn position (e.g., center of the room)
+            return room.transform.position;
+        }
+    }
+
+}
+
+
+/*    void OpenDoors(GameObject room, int x, int y)
+    {
         // Check for adjacent rooms
         GameObject leftRoom = GetRoomObjectAt(new Vector2Int(x - 1, y));
         GameObject rightRoom = GetRoomObjectAt(new Vector2Int(x + 1, y));
@@ -145,6 +255,46 @@ public class Walk : MonoBehaviour
             // Open door to the left in the current room and to the right in the left room
             room.GetComponent<Room>().OpenDoor(Vector2.left);
             leftRoom.GetComponent<Room>().OpenDoor(Vector2.right);
+        }
+
+        if (rightRoom != null)
+        {
+            // Open door to the right in the current room and to the left in the right room
+            room.GetComponent<Room>().OpenDoor(Vector2.right);
+            rightRoom.GetComponent<Room>().OpenDoor(Vector2.left);
+        }
+
+        if (topRoom != null)
+        {
+            // Open door upwards in the current room and downwards in the top room
+            room.GetComponent<Room>().OpenDoor(Vector2.up);
+            topRoom.GetComponent<Room>().OpenDoor(Vector2.down);
+        }
+
+        if (downRoom != null)
+        {
+            // Open door downwards in the current room and upwards in the bottom room
+            room.GetComponent<Room>().OpenDoor(Vector2.down);
+            downRoom.GetComponent<Room>().OpenDoor(Vector2.up);
+        }
+    }
+
+
+        Dictionary<Vector2, Vector3> OpenDoors(GameObject room, int x, int y)
+    {
+        Dictionary<Vector2, Vector3> doorPositions = new Dictionary<Vector2, Vector3>();
+
+        // Check for adjacent rooms
+        GameObject leftRoom = GetRoomObjectAt(new Vector2Int(x - 1, y));
+        GameObject rightRoom = GetRoomObjectAt(new Vector2Int(x + 1, y));
+        GameObject topRoom = GetRoomObjectAt(new Vector2Int(x, y + 1));
+        GameObject downRoom = GetRoomObjectAt(new Vector2Int(x, y - 1));
+
+        if (leftRoom != null)
+        {
+            // Open left door in current room and right in adjacent
+            room.GetComponent<Room>().OpenDoor(Vector2.left);
+            leftRoom.GetComponent<Room>().OpenDoor(Vector2.right);
 
             // Add left door position to the dictionary
             doorPositions.Add(Vector2.left, leftRoom.GetComponent<Room>().GetDoorPosition(Vector2.right));
@@ -152,7 +302,7 @@ public class Walk : MonoBehaviour
 
         if (rightRoom != null)
         {
-            // Open door to the right in the current room and to the left in the right room
+            // Open right door in current room and left in adjacent
             room.GetComponent<Room>().OpenDoor(Vector2.right);
             rightRoom.GetComponent<Room>().OpenDoor(Vector2.left);
 
@@ -162,7 +312,7 @@ public class Walk : MonoBehaviour
 
         if (topRoom != null)
         {
-            // Open door upwards in the current room and downwards in the top room
+            // Open top door in current room and bottom door in adjancet
             room.GetComponent<Room>().OpenDoor(Vector2.up);
             topRoom.GetComponent<Room>().OpenDoor(Vector2.down);
 
@@ -172,7 +322,7 @@ public class Walk : MonoBehaviour
 
         if (downRoom != null)
         {
-            // Open door downwards in the current room and upwards in the bottom room
+            // Open bottom door in current room and top door in adjancet
             room.GetComponent<Room>().OpenDoor(Vector2.down);
             downRoom.GetComponent<Room>().OpenDoor(Vector2.up);
 
@@ -184,22 +334,8 @@ public class Walk : MonoBehaviour
         {
             Debug.Log("Direction: " + doorPosition.Key + ", Position: " + doorPosition.Value);
         }
-
         return doorPositions;
     }
-
-    GameObject GetRoomObjectAt(Vector2Int index)
-    {
-        // Find the room object at the given index
-        return roomObjects.Find(r => r.transform.position == new Vector3(index.x * cellWidth, index.y * cellHeight, 0));
-    }
-
-    public void TeleportPlayerToDoor(Vector3 doorPosition, Vector2 doorDirection)
-    {
-        // Calculate the destination position based on the door position and direction
-        Vector3 destinationPosition = doorPosition + (Vector3)doorDirection;
-
-        // Teleport the player to the destination position
-        playerTransform.position = destinationPosition;
-    }
-}
+ 
+ 
+ */

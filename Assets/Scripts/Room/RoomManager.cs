@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
-public class RoomManager : MonoBehaviour
-{
+/*public class RoomManager : MonoBehaviour*/
+/*{
     public GameObject roomPrefab;
     private int maxRooms = 7;
     private int minRooms = 5;
@@ -165,3 +165,4 @@ public class RoomManager : MonoBehaviour
             cellHeight * (gridY - gridSizeY / 2));
     }
 }
+*/

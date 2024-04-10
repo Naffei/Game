@@ -13,13 +13,7 @@ public class PlayerSpawnPoint : MonoBehaviour
         SpawnPlayer();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void SpawnPlayer()
+    public void SpawnPlayer()
     {
         // Check if the player prefab and spawn point are assigned
         if (playerPrefab != null && spawnPoint != null)

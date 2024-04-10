@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5913902582297863371}
   - component: {fileID: 1717157234867808280}
+  - component: {fileID: 6440522622944828857}
   m_Layer: 0
   m_Name: MeleeHitbox
   m_TagString: Untagged
@@ -77,6 +78,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.53762794}
   m_EdgeRadius: 0
+--- !u!114 &6440522622944828857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5506976665026510356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e157780a465a58549bd57b928e83d22c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7978139701770935229}
+  swordDmg: 1
+  MeleeHitbox: {fileID: 5506976665026510356}
 --- !u!1001 &9124963645008254581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,9 +188,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4127793174083751397}
-    - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2967666963241500319}
     - targetCorrespondingSourceObject: {fileID: -2253911629886400664, guid: 0e334ea8762b5d942be3f05a18ea841e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4294551069458926620}
@@ -332,21 +345,6 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 2169078359977214237}
---- !u!114 &2967666963241500319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2169078359977214237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e157780a465a58549bd57b928e83d22c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 7978139701770935229}
-  swordDmg: 1
-  MeleeHitbox: {fileID: 5506976665026510356}
 --- !u!61 &4294551069458926620
 BoxCollider2D:
   m_ObjectHideFlags: 0

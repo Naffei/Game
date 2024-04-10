@@ -13,8 +13,8 @@ public class SlimeMovement : MonoBehaviour
     private Vector3 lastPlayerPos;
     private List<Vector3> playerPositions = new List<Vector3>();
     private bool isPushed = false;
+    public Room slimeRoom;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,7 +24,7 @@ public class SlimeMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isPushed && player != null)
+        if (!isPushed && player != null && slimeRoom != null && slimeRoom.IsPlayerInRoom(player))
         {
             if (Vector3.Distance(player.position, lastPlayerPos) > 0.3f)
             {
@@ -35,9 +35,14 @@ public class SlimeMovement : MonoBehaviour
             }
             MoveToPlayer();
         }
+        else
+        {
+            // Stop slime movement if player is not in the same room
+            rb.velocity = Vector2.zero;
+        }
     }
 
-    //Move to Player
+    // Move to Player
     void MoveToPlayer()
     {
         if (playerPositions.Count > 0)
@@ -99,5 +104,11 @@ public class SlimeMovement : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isPushed = false;
         rb.velocity = Vector2.zero;
+    }
+
+    // Set the slime's current room
+    public void SetSlimeRoom(Room room)
+    {
+        slimeRoom = room;
     }
 }
