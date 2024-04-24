@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Collidable
+  - SpawnRoom
+  - Door
+  - Door East
+  - Door North
+  - Door South
+  - Door West
+  - Undefined
+  - Door Down Right
+  - Door Left Right
+  - Door Up Down
+  - Door Up Left
+  - Door Up Left Down
+  - Door Up Down Left
+  - Door Left Up Right
+  - Door Left Down Right
+  - Enemy
+  - Room
+  - Item
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Wall
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
